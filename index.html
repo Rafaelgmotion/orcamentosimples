@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento - Catálogo Digital | Marmoraria Ipês</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        h1, h2, h3, h4, .font-bold {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+                        url('https://inforochas.com.br/wp-content/uploads/2017/06/1.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .marble-bg {
+            background-image: url('https://www.aarquiteta.com.br/blog/wp-content/uploads/2024/10/tipos-de-marmore4.jpg.webp');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .granite-bg {
+            background-image: url('https://ambientepadrao.com.br/images/2024/11/22/img02.webp');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .stone-pattern {
+            background-image: url('https://images.unsplash.com/photo-1516937941344-00b4e0337589?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, #C19A6B 0%, #8B7355 100%);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        :root {
+            --stone-beige: #D7CEC7;
+            --stone-brown: #8B7355;
+            --stone-gray: #6B7B7C;
+            --stone-gold: #C19A6B;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* WhatsApp pulse animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .whatsapp-pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <section class="hero-bg text-white pt-16 pb-24">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-10">
+                <!-- LOGO DO CLIENTE - TROQUE A URL AQUI -->
+                <img src="https://i.ibb.co/HD3MS9fP/logo-branca.png" 
+                     alt="Logo Marmoraria Ipês" 
+                     class="h-28 md:h-32 w-auto mx-auto mb-6">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Orçamento - Catálogo Digital</h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto">Proposta comercial para transformar suas pedras em vendas online</p>
+            </div>
+            
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold mb-4">Para a Marmoraria Ipês</h2>
+                <p class="text-lg mb-2">Proposta elaborada especialmente para suas necessidades</p>
+                <p class="text-lg"><span class="font-bold text-yellow-300">Data:</span> <span id="currentDate"></span></p>
+            </div>
+        </div>
+    </section>
+
+        <!-- Opções de Catálogo -->
+    <section class="container mx-auto px-4 py-12" id="opcoes">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Opções Disponíveis</h2>
+        <p class="text-center text-gray-600 text-lg mb-12 max-w-3xl mx-auto">Escolha a solução ideal para sua marmoraria com condições de pagamento flexíveis</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Opção 1: Catálogo Estático -->
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col">
+                <div class="marble-bg h-48 relative flex-shrink-0">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <h3 class="text-3xl font-bold text-white text-center px-4">Catálogo Digital Simples</h3>
+                    </div>
+                </div>
+                
+                <div class="p-6 flex-grow flex flex-col">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-stone-100 rounded-full text-stone-700 mb-4">
+                            <i class="fas fa-book-open text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Solução Básica</h3>
+                        <p class="text-gray-600 mt-2">Presença digital profissional</p>
+                    </div>
+                    
+                    <!-- Preços -->
+                    <div class="mb-6">
+                        <div class="price-tag bg-stone-50 p-4 rounded-lg border border-stone-200 mb-4">
+                            <div class="text-center">
+                                <span class="text-4xl font-bold text-stone-800">R$ 1.200</span>
+                                <span class="text-gray-600">,00</span>
+                            </div>
+                            <p class="text-center text-gray-500 text-sm mt-1">Pagamento à vista</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="text-center">
+                                <span class="text-2xl font-bold text-blue-800">R$ 1.320</span>
+                                <span class="text-gray-600">,00</span>
+                            </div>
+                            <p class="text-center text-gray-600 text-sm mt-1">Em 4x (entrada + 3)</p>
+                            <p class="text-center text-xs text-gray-500">1ª parcela: R$ 330,00 + 3x de R$ 330,00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8 flex-grow">
+                        <h4 class="font-bold text-gray-800 mb-3 text-lg">Inclui:</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Até 50 produtos fotografados</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt=1 mr-3"></i>
+                                <span>Design responsivo para celular e computador</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Botão direto para WhatsApp</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Hospedagem por 12 meses</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Suporte técnico por 30 dias</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center mt-auto">
+                        <button class="bg-stone-700 text-white w-full py-3 rounded-lg font-bold hover:bg-stone-800 transition mb-3" onclick="showDetails('static')">
+                            <i class="fas fa-info-circle mr-2"></i>Ver Detalhes
+                        </button>
+                        <button class="border border-stone-700 text-stone-700 w-full py-3 rounded-lg font-bold hover:bg-stone-50 transition" onclick="selectOption(1)">
+                            Selecionar Esta
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Opção 2: Catálogo Interativo (Destaque) -->
+            <div class="card-hover bg-white rounded-xl shadow-2xl overflow-hidden border-2 border-yellow-500 relative flex flex-col">
+                <div class="feature-badge">RECOMENDADA</div>
+                <div class="granite-bg h-48 relative flex-shrink-0">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h3 class="text-3xl font-bold text-white text-center px-4">Showroom Digital Completo</h3>
+                    </div>
+                </div>
+                
+                <div class="p-6 flex-grow flex flex-col">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-yellow-100 rounded-full text-yellow-700 mb-4">
+                            <i class="fas fa-star text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Solução Premium</h3>
+                        <p class="text-gray-600 mt-2">Experiência completa de venda</p>
+                    </div>
+                    
+                    <!-- Preços -->
+                    <div class="mb-6">
+                        <div class="price-tag bg-amber-50 p-4 rounded-lg border border-amber-200 mb-4">
+                            <div class="text-center">
+                                <span class="text-4xl font-bold text-stone-800">R$ 3.200</span>
+                                <span class="text-gray-600">,00</span>
+                            </div>
+                            <p class="text-center text-gray-500 text-sm mt-1">À vista (desconto de R$ 300)</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="text-center">
+                                <span class="text-2xl font-bold text-blue-800">R$ 3.500</span>
+                                <span class="text-gray-600">,00</span>
+                            </div>
+                            <p class="text-center text-gray-600 text-sm mt-1">Em 4x (entrada + 3)</p>
+                            <p class="text-center text-xs text-gray-500">1ª parcela: R$ 875,00 + 3x de R$ 875,00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8 flex-grow">
+                        <h4 class="font-bold text-gray-800 mb-3 text-lg">Inclui tudo da básica, mais:</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Sistema de filtros avançados (cor, tipo, preço)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Zoom interativo para ver detalhes das pedras</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Comparador de produtos lado a lado</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt=1 mr-3"></i>
+                                <span>Simulador de orçamento por m²</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Painel administrativo para atualizações</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Otimização para Google (SEO local)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Suporte técnico por 6 meses</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center mt-auto">
+                        <button class="bg-yellow-500 text-white w-full py-3 rounded-lg font-bold hover:bg-yellow-600 transition mb-3" onclick="showDetails('interactive')">
+                            <i class="fas fa-play-circle mr-2"></i>Ver Demonstração
+                        </button>
+                        <button class="border border-yellow-500 text-yellow-600 w-full py-3 rounded-lg font-bold hover:bg-yellow-50 transition" onclick="selectOption(2)">
+                            Selecionar Esta
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Opção 3: Catálogo WhatsApp -->
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col">
+                <div class="h-48 relative flex-shrink-0" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                        <h3 class="text-3xl font-bold text-white text-center px-4">Catálogo WhatsApp Business</h3>
+                    </div>
+                </div>
+                
+                <div class="p-6 flex-grow flex flex-col">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full text-green-700 mb-4">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800">Solução Direta</h3>
+                        <p class="text-gray-600 mt-2">Venda integrada ao WhatsApp</p>
+                    </div>
+                    
+                    <!-- Preços -->
+                    <div class="mb-6">
+                        <div class="price-tag bg-green-50 p-4 rounded-lg border border-green-200 mb-4">
+                            <div class="text-center">
+                                <span class="text-4xl font-bold text-stone-800">R$ 600</span>
+                                <span class="text-gray-600">,00</span>
+                            </div>
+                            <p class="text-center text-gray-500 text-sm mt-1">Pagamento à vista</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="text-center">
+                                <span class="text-2xl font-bold text-blue-800">R$ 600</span>
+                                <span class="text-gray-600">,00</span>
+                            </div>
+                            <p class="text-center text-gray-600 text-sm mt-1">Em 2x sem juros</p>
+                            <p class="text-center text-xs text-gray-500">2x de R$ 300,00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8 flex-grow">
+                        <h4 class="font-bold text-gray-800 mb-3 text-lg">Inclui:</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Configuração do catálogo no WhatsApp Business</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Organização de até 30 produtos principais</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Configuração de respostas automáticas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Template de mensagens para orçamentos</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Orientação para uso do WhatsApp Business</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Nota sobre instalação -->
+                    <div class="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                        <h4 class="font-bold text-amber-800 mb-2 text-sm flex items-center">
+                            <i class="fas fa-info-circle mr-2"></i> Instalação necessária
+                        </h4>
+                        <p class="text-amber-700 text-sm">
+                            Esta opção requer <strong>1 visita presencial</strong> para configuração do WhatsApp Business no seu celular/computador. Inclui treinamento prático para você e sua equipe.
+                        </p>
+                    </div>
+                    
+                    <div class="text-center mt-auto">
+                        <button class="bg-green-500 text-white w-full py-3 rounded-lg font-bold hover:bg-green-600 transition mb-3" onclick="showDetails('whatsapp')">
+                            <i class="fab fa-whatsapp mr-2"></i>Como Funciona
+                        </button>
+                        <button class="border border-green-500 text-green-600 w-full py-3 rounded-lg font-bold hover:bg-green-50 transition" onclick="selectOption(3)">
+                            Selecionar Esta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Nota sobre formas de pagamento -->
+        <div class="max-w-2xl mx-auto mt-12">
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <h3 class="font-bold text-gray-800 mb-3 text-lg text-center">Condições de Pagamento</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full text-green-600 mb-3">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">Pagamento à Vista</h4>
+                        <p class="text-gray-700 text-sm">Desconto aplicado em algumas opções. Transferência bancária, Cartão PIX ou dinheiro.</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full text-blue-600 mb-3">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-2">Parcelamento</h4>
+                        <p class="text-gray-700 text-sm">Cartão de crédito ou transferência parcelada. Entrada + 3 parcelas mensais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Processo de Desenvolvimento -->
+    <section class="bg-stone-100 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Como Funciona o Desenvolvimento</h2>
+            
+            <div class="max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-stone-700 text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">1</div>
+                        <h3 class="font-bold text-gray-800 mb-2">Reunião Inicial</h3>
+                        <p class="text-gray-700">Conversamos para entender suas necessidades específicas</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-stone-700 text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">2</div>
+                        <h3 class="font-bold text-gray-800 mb-2">Coleta de Material</h3>
+                        <p class="text-gray-700">Você envia fotos, preços e informações dos produtos</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-stone-700 text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">3</div>
+                        <h3 class="font-bold text-gray-800 mb-2">Desenvolvimento</h3>
+                        <p class="text-gray-700">Criamos seu catálogo digital personalizado</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto bg-stone-700 text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">4</div>
+                        <h3 class="font-bold text-gray-800 mb-2">Treinamento</h3>
+                        <p class="text-gray-700">Ensinamos você a usar e atualizar seu catálogo</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12 bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Próximos Passos</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 text-xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">1. Escolha uma das opções acima</h4>
+                                <p class="text-gray-700">Selecione a solução que melhor atende suas necessidades</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 text-xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">2. Entre em contato para confirmar</h4>
+                                <p class="text-gray-700">Fale comigo para ajustarmos os detalhes do projeto</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 text-xl mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">3. Envie o material inicial</h4>
+                                <p class="text-gray-700">Fotos, preços e informações dos produtos que deseja incluir</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 text-xl mt=1 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800">4. Receba seu catálogo em poucos dias</h4>
+                                <p class="text-gray-700">Desenvolvimento ágil com acompanhamento em cada etapa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="stone-pattern text-white py-16">
+        <div class="bg-black bg-opacity-70 py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para Começar?</h2>
+                    <p class="text-xl mb-10 max-w-2xl mx-auto">Entre em contato para tirar dúvidas ou confirmar sua escolha</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6">
+                            <i class="fab fa-whatsapp text-4xl mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">WhatsApp</h3>
+                            <p class="text-lg mb-4">Resposta rápida e direta</p>
+                            <a href="https://wa.me/5524981356706" 
+                               target="_blank" 
+                               class="whatsapp-pulse inline-flex items-center bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition text-lg">
+                                <i class="fab fa-whatsapp mr-2"></i> (24) 98135-6706
+                            </a>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6">
+                            <i class="fas fa-phone-alt text-4xl mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Telefone</h3>
+                            <p class="text-lg mb-4">Para conversarmos melhor</p>
+                            <a href="tel:2424981356706" 
+                               class="inline-flex items-center bg-stone-700 text-white px-6 py-3 rounded-lg font-bold hover:bg-stone-800 transition text-lg">
+                                <i class="fas fa-phone mr-2"></i> (24) 98135-6706
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6">
+                        <h3 class="text-2xl font-bold mb-4">Esta Proposta É Válida Por</h3>
+                        <p class="text-xl mb-2">30 dias a partir de <span id="proposalDate"></span></p>
+                        <p class="text-gray-300">Após este período, valores e condições podem ser reajustados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">Orçamento - Catálogo Digital</h3>
+                    <p class="text-gray-400">Elaborado especialmente para a Marmoraria Ipês</p>
+                </div>
+
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400 mb-1">Orçamento elaborado por</p>
+                    <p class="text-lg font-bold text-gray-600">Rafael Garcia</p>
+                    <p class="text-gray-600 text-sm mb-2">Desenvolvedor Front-end</p>
+                    <p class="text-gray-400 text-xs border-t border-gray-200 pt-2">
+                        Tecnologias: HTML5 | Tailwind CSS | JavaScript Vanilla
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>Este documento é uma proposta comercial. Valores e condições válidos até <span id="validDate"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Detalhes -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800" id="modalTitle">Detalhes da Opção</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Conteúdo carregado por JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full text-green-600 mb-6">
+                    <i class="fas fa-check text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4" id="confirmTitle">Opção Selecionada!</h3>
+                <p class="text-gray-700 mb-6" id="confirmMessage">Você selecionou uma das opções de catálogo digital.</p>
+                <div class="space-y-4">
+                    <a href="https://wa.me/5524981356706?text=Olá! Gostaria de confirmar minha escolha do catálogo digital para a Marmoraria Ipês." 
+                       target="_blank" 
+                       class="whatsapp-pulse inline-block bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition text-lg w-full">
+                        <i class="fab fa-whatsapp mr-2"></i> Confirmar pelo WhatsApp
+                    </a>
+                    <button onclick="closeConfirmationModal()" class="border border-gray-400 text-gray-700 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition w-full">
+                        Voltar para as Opções
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const now = new Date();
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        const formattedDate = now.toLocaleDateString('pt-BR', options);
+        
+        document.getElementById('currentDate').textContent = formattedDate;
+        document.getElementById('proposalDate').textContent = formattedDate;
+        
+        // Set valid until date (30 days from now)
+        const validDate = new Date();
+        validDate.setDate(validDate.getDate() + 30);
+        const formattedValidDate = validDate.toLocaleDateString('pt-BR', options);
+        document.getElementById('validDate').textContent = formattedValidDate;
+        
+        // Modal functionality
+        function showDetails(type) {
+            const modal = document.getElementById('detailsModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            modal.style.display = 'flex';
+            
+            if (type === 'static') {
+                title.textContent = 'Catálogo Digital Simples - Detalhes';
+                content.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-4 text-lg">Ideal para:</h4>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Quem está começando no digital</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt=1 mr-3"></i>
+                                <span>Marmorarias com até 50 tipos de pedra</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Quem quer uma presença online básica e profissional</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-gray-800 mb-4 text-lg">Exemplo de uso:</h4>
+                        <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                            <p class="text-gray-700">"O cliente pede fotos do mármore branco. Você envia o link do catálogo. Ele vê todas as opções, clica no botão do WhatsApp e já conversa com você sobre orçamento."</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button class="bg-stone-700 text-white px-6 py-3 rounded-lg font-bold hover:bg-stone-800 transition" onclick="selectOption(1); closeModal();">
+                                Selecionar Esta Opção
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'interactive') {
+                title.textContent = 'Showroom Digital - Detalhes';
+                content.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-4 text-lg">Ideal para:</h4>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Marmorarias que querem se destacar da concorrência</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Quem tem muitos tipos de pedra e quer facilitar a escolha</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Empresas que buscam uma experiência premium para clientes</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-gray-800 mb-4 text-lg">Vantagens competitivas:</h4>
+                        <div class="bg-amber-50 p-4 rounded-lg mb-6">
+                            <p class="text-gray-700"><strong>Diferencial:</strong> Enquanto seus concorrentes enviam fotos soltas pelo WhatsApp, você envia um link profissional onde o cliente pode filtrar, comparar e até calcular o preço aproximado.</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button class="bg-yellow-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-yellow-600 transition" onclick="selectOption(2); closeModal();">
+                                Selecionar Esta Opção
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'whatsapp') {
+                title.textContent = 'Catálogo WhatsApp - Detalhes';
+                content.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-4 text-lg">Ideal para:</h4>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Quem já vende bastante pelo WhatsApp</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Marmorarias que querem organizar as vendas pelo celular</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Quem busca praticidade e integração total com WhatsApp</span>
+                            </li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-gray-800 mb-4 text-lg">Como funciona na prática:</h4>
+                        <div class="bg-green-50 p-4 rounded-lg mb-6">
+                            <p class="text-gray-700">Seu cliente salva seu contato no WhatsApp. Quando abrir a conversa, verá a opção "Catálogo". Clica e vê todos seus produtos organizados, com preços atualizados. Escolhe o que quer e já inicia o pedido.</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button class="bg-green-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-600 transition" onclick="selectOption(3); closeModal();">
+                                Selecionar Esta Opção
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        function closeModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+        
+        // Option selection
+        function selectOption(optionNumber) {
+            const confirmationModal = document.getElementById('confirmationModal');
+            const title = document.getElementById('confirmTitle');
+            const message = document.getElementById('confirmMessage');
+            
+            if (optionNumber === 1) {
+                title.textContent = 'Catálogo Digital Simples Selecionado!';
+                message.textContent = 'Ótima escolha! Você selecionou o Catálogo Digital Simples por R$ 1.200,00. Clique no botão abaixo para confirmar pelo WhatsApp.';
+            } else if (optionNumber === 2) {
+                title.textContent = 'Showroom Digital Selecionado!';
+                message.textContent = 'Excelente decisão! Você selecionou o Showroom Digital Completo por R$ 3.500,00. Clique no botão abaixo para confirmar pelo WhatsApp.';
+            } else if (optionNumber === 3) {
+                title.textContent = 'Catálogo WhatsApp Selecionado!';
+                message.textContent = 'Ótima opção! Você selecionou o Catálogo WhatsApp Business por R$ 800,00 + R$ 50/mês. Clique no botão abaixo para confirmar pelo WhatsApp.';
+            }
+            
+            confirmationModal.style.display = 'flex';
+            
+            // Scroll to top to see the modal
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const detailsModal = document.getElementById('detailsModal');
+            const confirmationModal = document.getElementById('confirmationModal');
+            
+            if (event.target === detailsModal) {
+                detailsModal.style.display = 'none';
+            }
+            
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
